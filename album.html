@@ -1,10 +1,9 @@
-<!-- Updated album.html with floating hearts background, auto-play music, and page-flip transitions -->
 <!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Album Ký Ức — Phiên bản nâng cấp</title>
+  <title>Album Ký Ức — Phiên bản hoàn chỉnh</title>
   <style>
     :root{--paper:#f6eee2;--accent:#b86b66;--muted:#f7d6dc;--text:#4a2b2a}
     *{box-sizing:border-box}
@@ -44,7 +43,7 @@
 
     .polaroid{width:70%;max-width:640px;background:#fff;border-radius:10px;padding:16px;padding-bottom:28px;box-shadow:0 20px 40px rgba(74,43,42,0.12);display:flex;flex-direction:column;align-items:center}
     .polaroid .photo{width:100%;height:360px;background-size:cover;background-position:center;border-radius:6px}
-    .polaroid .caption{margin-top:12px;color:var(--text);text-align:center}
+    .polaroid .caption{margin-top:12px;color:var(--text);text-align:center;font-style:italic}
 
     .controls{display:flex;gap:8px;justify-content:center;margin-top:12px}
     .controls button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
@@ -56,7 +55,7 @@
 </head>
 <body>
 
-  <!-- Hearts floating automatically -->
+  <!-- Floating hearts background -->
   <script>
     function createHeart(){ 
       const el=document.createElement('div');
@@ -73,7 +72,7 @@
 
   <div class="container">
     <h1>Những Ký Ức Của Chúng Mình 💞</h1>
-    <p class="lead">Chọn một chủ đề để xem lại album — mỗi ảnh sẽ lật như trang sách.</p>
+    <p class="lead">Chọn một chủ đề để xem lại album — mỗi ảnh có một ghi chú nhỏ từ anh gửi em.</p>
 
     <section class="topics" id="topics"></section>
 
@@ -103,18 +102,66 @@
   </audio>
 
   <script>
+    /* -------- 1. Album Data -------- */
     const topicsData = [
-      { id: 't1', title: 'Kỷ niệm bên nhau', desc: 'Những khoảnh khắc ấm áp', images: [
-        'https://picsum.photos/seed/km1/1200/900','https://picsum.photos/seed/km2/1200/900','https://picsum.photos/seed/km3/1200/900','https://picsum.photos/seed/km4/1200/900'
-      ]},
-      { id: 't2', title: 'Những chuyến đi', desc: 'Cùng nhau đi khắp nơi', images: [
-        'https://picsum.photos/seed/ct1/1200/900','https://picsum.photos/seed/ct2/1200/900','https://picsum.photos/seed/ct3/1200/900','https://picsum.photos/seed/ct4/1200/900'
-      ]},
-      { id: 't3', title: 'Sinh nhật & bất ngờ', desc: 'Những ngày đặc biệt', images: [
-        'https://picsum.photos/seed/sb1/1200/900','https://picsum.photos/seed/sb2/1200/900','https://picsum.photos/seed/sb3/1200/900','https://picsum.photos/seed/sb4/1200/900'
-      ]}
+      {
+        id: 't1',
+        title: 'Kỷ niệm bên nhau',
+        desc: 'Những khoảnh khắc ấm áp',
+        images: [
+          { src: 'https://picsum.photos/seed/km1/1200/900', note: 'Lần đầu mình chụp chung mà cả hai đều cười thật lòng.' },
+          { src: 'https://picsum.photos/seed/km2/1200/900', note: 'Hôm đó em mệt nhưng vẫn ráng đi cùng anh.' },
+          { src: 'https://picsum.photos/seed/km3/1200/900', note: 'Khoảnh khắc nhìn nhau không nói gì mà vẫn hiểu.' },
+          { src: 'https://picsum.photos/seed/km4/1200/900', note: 'Tấm này anh chụp lén, nhưng là một trong những tấm anh thích nhất.' }
+        ]
+      },
+      {
+        id: 't2',
+        title: 'Những chuyến đi',
+        desc: 'Cùng nhau đi khắp nơi',
+        images: [
+          { src: 'https://picsum.photos/seed/ct1/1200/900', note: 'Chuyến đi mà cả hai đứa đều cãi nhau, nhưng cuối cùng vẫn nắm tay.' },
+          { src: 'https://picsum.photos/seed/ct2/1200/900', note: 'Em nói muốn ngắm hoàng hôn, anh nhớ cách em nhìn bầu trời hơn cả.' },
+          { src: 'https://picsum.photos/seed/ct3/1200/900', note: 'Lạc đường nhưng vui vật vã, miễn là còn đi cùng nhau.' },
+          { src: 'https://picsum.photos/seed/ct4/1200/900', note: 'Nếu được, anh vẫn chọn cùng em đi lại từ đầu chuyến này.' }
+        ]
+      },
+      {
+        id: 't3',
+        title: 'Sinh nhật & bất ngờ',
+        desc: 'Những ngày đặc biệt của em và tụi mình',
+        images: [
+          { src: 'https://picsum.photos/seed/sb1/1200/900', note: 'Sinh nhật năm đó em ước điều gì, anh vẫn luôn tò mò.' },
+          { src: 'https://picsum.photos/seed/sb2/1200/900', note: 'Chiếc bánh nhỏ nhưng nụ cười em thì siêu to khổng lồ.' },
+          { src: 'https://picsum.photos/seed/sb3/1200/900', note: 'Anh không giỏi bất ngờ, nhưng luôn muốn làm em vui.' },
+          { src: 'https://picsum.photos/seed/sb4/1200/900', note: 'Nếu có năm sau, anh hứa sẽ làm tốt hơn cho em.' }
+        ]
+      },
+      {
+        id: 't4',
+        title: 'Khoảnh khắc dễ thương của em',
+        desc: 'Những biểu cảm khiến anh tan chảy',
+        images: [
+          { src: 'https://picsum.photos/seed/cute1/1200/900', note: 'Cái lúm đồng tiền này là tội ác, biết không.' },
+          { src: 'https://picsum.photos/seed/cute2/1200/900', note: 'Em nhăn mặt vậy thôi chứ vẫn dễ thương.' },
+          { src: 'https://picsum.photos/seed/cute3/1200/900', note: 'Tấm này em chê xấu, còn anh thấy đúng là “vợ tương lai”.' },
+          { src: 'https://picsum.photos/seed/cute4/1200/900', note: 'Mỗi biểu cảm của em đều là một lý do để anh thương thêm.' }
+        ]
+      },
+      {
+        id: 't5',
+        title: 'Những dòng nhắn gửi',
+        desc: 'Lời anh muốn nói với em',
+        images: [
+          { src: 'https://picsum.photos/seed/msg1/1200/900', note: 'Cảm ơn em vì đã từng chọn anh.' },
+          { src: 'https://picsum.photos/seed/msg2/1200/900', note: 'Xin lỗi vì những lúc anh làm em buồn.' },
+          { src: 'https://picsum.photos/seed/msg3/1200/900', note: 'Anh vẫn đang học cách trở thành phiên bản tốt hơn.' },
+          { src: 'https://picsum.photos/seed/msg4/1200/900', note: 'Nếu em cho phép, anh muốn lại được cùng em viết tiếp.' }
+        ]
+      }
     ];
 
+    /* -------- 2. Core Logic -------- */
     const topicsEl=document.getElementById('topics');
     const overlay=document.getElementById('overlay');
     const slideshow=document.getElementById('slideshow');
@@ -125,18 +172,21 @@
     const pauseBtn=document.getElementById('pause');
     const bgMusic=document.getElementById('bgMusic');
 
-    function buildTopics(){ topicsEl.innerHTML=''; topicsData.forEach(t=>{
-      const el=document.createElement('div');
-      el.className='topic';
-      el.dataset.id=t.id;
-      el.innerHTML=`<div class="thumb" style="background-image:url('${t.images[0]}')"></div><div class="info"><h3>${t.title}</h3><p>${t.desc}</p></div>`;
-      topicsEl.appendChild(el);
-    }); }
-
+    function buildTopics(){
+      topicsEl.innerHTML='';
+      topicsData.forEach(t=>{
+        const el=document.createElement('div');
+        el.className='topic';
+        el.dataset.id=t.id;
+        el.innerHTML=`<div class="thumb" style="background-image:url('${t.images[0].src}')"></div>
+                      <div class="info"><h3>${t.title}</h3><p>${t.desc}</p></div>`;
+        topicsEl.appendChild(el);
+      });
+    }
     buildTopics();
 
     let currentTopic=null, slides=[], currentIndex=0, slideInterval=null, playing=true;
-    const intervalMs=3000;
+    const intervalMs=3500;
 
     function openAlbum(topicId){
       const topic=topicsData.find(x=>x.id===topicId);
@@ -145,79 +195,79 @@
       albumTitle.textContent=topic.title;
       slideshow.innerHTML='';
       slides=[];
-
-      topic.images.forEach((src,i)=>{
+      topic.images.forEach((img,i)=>{
         const s=document.createElement('div');
         s.className='slide';
         s.dataset.index=i;
-        s.innerHTML = `<div class="polaroid"><div class="photo" style="background-image:url('${src}')"></div><div class="caption">${topic.title} — Ảnh ${i+1}</div></div>`;
+        s.innerHTML=`<div class="polaroid">
+                        <div class="photo" style="background-image:url('${img.src}')"></div>
+                        <div class="caption">${img.note}</div>
+                      </div>`;
         slideshow.appendChild(s);
         slides.push(s);
       });
-
       overlay.style.display='flex';
       currentIndex=0;
-      showSlide(0, true);
-
-      bgMusic.play();
-
+      showSlide(0,true);
+      bgMusic.play().catch(()=>{});
       playing=true;
       pauseBtn.textContent='Tạm dừng';
       startAuto();
     }
 
-    function showSlide(i, instant){
+    function showSlide(i,instant){
       slides.forEach((s,idx)=>{
         s.classList.remove('show','flipOut','flipIn');
         if(idx===i){
           if(!instant) s.classList.add('flipIn');
-          setTimeout(()=>s.classList.add('show'), 100);
+          setTimeout(()=>s.classList.add('show'),100);
         }
       });
     }
 
     function nextSlide(){
+      if(!slides.length)return;
       slides[currentIndex].classList.add('flipOut');
       currentIndex=(currentIndex+1)%slides.length;
       setTimeout(()=>showSlide(currentIndex,false),300);
     }
 
     function prevSlide(){
+      if(!slides.length)return;
       slides[currentIndex].classList.add('flipOut');
       currentIndex=(currentIndex-1+slides.length)%slides.length;
       setTimeout(()=>showSlide(currentIndex,false),300);
     }
 
-    function startAuto(){ stopAuto(); slideInterval=setInterval(nextSlide, intervalMs); }
-    function stopAuto(){ if(slideInterval) clearInterval(slideInterval); }
+    function startAuto(){stopAuto();slideInterval=setInterval(nextSlide,intervalMs);}
+    function stopAuto(){if(slideInterval)clearInterval(slideInterval);}
 
-    topicsEl.addEventListener('click', e=>{
+    topicsEl.addEventListener('click',e=>{
       const t=e.target.closest('.topic');
-      if(!t) return;
+      if(!t)return;
       openAlbum(t.dataset.id);
     });
 
-    backBtn.addEventListener('click',()=>{ overlay.style.display='none'; stopAuto(); });
-    nextBtn.addEventListener('click',()=>nextSlide());
-    prevBtn.addEventListener('click',()=>prevSlide());
+    backBtn.addEventListener('click',()=>{overlay.style.display='none';stopAuto();});
+    nextBtn.addEventListener('click',nextSlide);
+    prevBtn.addEventListener('click',prevSlide);
 
     pauseBtn.addEventListener('click',()=>{
-      if(playing){ stopAuto(); playing=false; pauseBtn.textContent='Phát lại'; }
-      else{ startAuto(); playing=true; pauseBtn.textContent='Tạm dừng'; }
+      if(playing){stopAuto();playing=false;pauseBtn.textContent='Phát lại';}
+      else{startAuto();playing=true;pauseBtn.textContent='Tạm dừng';}
     });
 
-    overlay.addEventListener('click', e=>{
-      if(e.target===overlay){ overlay.style.display='none'; stopAuto(); }
+    overlay.addEventListener('click',e=>{
+      if(e.target===overlay){overlay.style.display='none';stopAuto();}
     });
 
-    document.addEventListener('keydown', e=>{
+    document.addEventListener('keydown',e=>{
       if(overlay.style.display==='flex'){
-        if(e.key==='ArrowRight') nextSlide();
-        if(e.key==='ArrowLeft') prevSlide();
-        if(e.key==='Escape'){ overlay.style.display='none'; stopAuto(); }
+        if(e.key==='ArrowRight')nextSlide();
+        if(e.key==='ArrowLeft')prevSlide();
+        if(e.key==='Escape'){overlay.style.display='none';stopAuto();}
       }
     });
-
   </script>
 </body>
 </html>
