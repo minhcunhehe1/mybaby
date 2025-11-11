@@ -1,119 +1,176 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gửi Bột 💌</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
   <style>
-    body{
-      margin:0;padding:0;font-family:'Dancing Script',cursive;color:#5a4632;min-height:100vh;
-      display:flex;justify-content:center;align-items:center;background-color:#f6efe4;
-      background-image:url('https://i.pinimg.com/736x/12/59/59/125959551bdfe0f8155cda726b2a89a8.jpg');
-      background-repeat:no-repeat;background-position:center center;background-size:contain;
+    body {
+      margin: 0;
+      padding: 40px 0;
+      font-family: 'Dancing Script', cursive;
+      color: #5a4632;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f6efe4;
+      background-image: url('https://i.pinimg.com/736x/12/59/59/125959551bdfe0f8155cda726b2a89a8.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
     }
 
-    /* Nút mở đầu */
-    #startScreen{
-      position:fixed;inset:0;display:flex;justify-content:center;align-items:center;
-      backdrop-filter:blur(4px);background:rgba(0,0,0,0.4);z-index:9999;
-    }
-    #startButton{
-      font-size:1.4em;padding:14px 26px;border-radius:14px;border:none;
-      background:white;color:#a36a4f;font-weight:bold;cursor:pointer;
-      box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    .frame {
+      width: 736px;
+      max-width: 96vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .frame{width:736px;max-width:96vw;display:flex;flex-direction:column;align-items:center;pointer-events:none;}
-    #letter{
-      pointer-events:auto;width:68%;max-width:520px;margin-top:40px;font-size:1.35em;line-height:1.9em;
-      white-space:pre-line;text-align:justify;opacity:0;transition:opacity 1s ease-in;
-      background:rgba(255,248,236,.78);padding:22px 24px;border-radius:8px;box-shadow:0 8px 18px rgba(0,0,0,.12);
+    #letter {
+      width: 68%;
+      max-width: 520px;
+      margin-top: 40px;
+      font-size: 1.35em;
+      line-height: 1.9em;
+      white-space: pre-line;
+      text-align: justify;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+      background: rgba(255, 248, 236, 0.78);
+      padding: 22px 24px;
+      border-radius: 8px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      backdrop-filter: blur(0.5px);
     }
-    #nextButton{
-      pointer-events:auto;margin-top:26px;background:rgba(255,255,255,.85);border:2px solid #a36a4f;border-radius:12px;
-      font-size:1.2em;color:#a36a4f;cursor:pointer;padding:8px 22px;opacity:0;transition:opacity 1.2s ease-in;
-      box-shadow:0 4px 12px rgba(0,0,0,.18)
+
+    #nextButton {
+      margin-top: 26px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 2px solid #a36a4f;
+      border-radius: 12px;
+      font-size: 1.2em;
+      color: #a36a4f;
+      cursor: pointer;
+      padding: 8px 22px;
+      opacity: 0;
+      transition: opacity 1.2s ease-in;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
     }
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+    #nextButton:hover {
+      background: rgba(255, 250, 240, 0.98);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        background-size: cover;
+        background-position: center;
+        padding: 20px 0;
+      }
+      .frame {
+        width: 100%;
+      }
+      #letter {
+        width: 82%;
+        margin-top: 24px;
+        font-size: 1.12em;
+        padding: 18px 18px;
+      }
+      #nextButton {
+        font-size: 1.05em;
+        padding: 8px 18px;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <!-- Màn hình mở đầu -->
-  <div id="startScreen">
-    <button id="startButton">Bột bấm vào đây trước nha ❤️</button>
-  </div>
 
   <div class="frame">
     <div id="letter"></div>
     <button id="nextButton">Đọc xong rồi Bột bấm vào đây nha ❤️</button>
   </div>
 
-  <!-- Nhạc TRANG 1 -->
-  <audio id="page1Music" preload="auto" loop playsinline>
-    <source src="https://files.catbox.moe/nc3nnh.mp3" type="audio/mpeg"/>
+  <audio id="pianoIntro" autoplay loop>
+    <source src="https://files.catbox.moe/wrwvxv.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="mainMusic" loop>
+    <source src="https://files.catbox.moe/diyvx1.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     const text =
-`Có lẽ anh đã quá mải mê với những điều trước mắt khi ấy, mà quên mất rằng… em mới là điều quan trọng nhất.
+`Có lẽ anh đã quá mải mê với những điều trước mắt khi ấy mà quên mất rằng em mới là điều quan trọng nhất.
 
-Thời gian qua, anh đã đi qua từng ngày mà không có em — không còn những tin nhắn, những buổi tối cười vu vơ, hay cảm giác bình yên khi biết có em ở đó.
+Thời gian qua, anh đã đi qua từng ngày mà không có em, không còn những tin nhắn, những buổi tối cười vu vơ hay cảm giác bình yên khi biết có em ở đó.
 
-Anh tạo nên góc nhỏ này… không để níu kéo, mà để kể lại những kỷ niệm mà anh vẫn luôn giữ, từng tấm ảnh, từng nụ cười.
+Anh làm góc nhỏ này không phải để ép em quay lại, mà để nói với em rằng những gì tụi mình đã có chưa từng là điều anh xem nhẹ.
 
-Nếu em có đọc đến đây, chỉ mong em biết… anh vẫn nhớ, vẫn thương, và vẫn muốn được làm mọi thứ lại, từ đầu — nhưng lần này, anh sẽ làm đúng hơn.`;
+Nếu em đọc đến đây, anh chỉ mong em biết rằng anh vẫn trân trọng, vẫn nhớ, và nếu một ngày nào đó tụi mình có thêm một cơ hội, anh sẽ dùng tất cả sự chân thành của mình để không làm em tổn thương thêm lần nào nữa.`;
 
     const letterEl = document.getElementById('letter');
     const nextButton = document.getElementById('nextButton');
-    const page1Music = document.getElementById('page1Music');
-    const startScreen = document.getElementById('startScreen');
-    const startButton = document.getElementById('startButton');
+    const pianoIntro = document.getElementById('pianoIntro');
+    const mainMusic = document.getElementById('mainMusic');
 
     let i = 0;
 
-    function typeWriter(){
-      if(i < text.length){
+    function typeWriter() {
+      if (i < text.length) {
         letterEl.textContent += text.charAt(i);
         i++;
         setTimeout(typeWriter, 40);
-      }else{
+      } else {
         nextButton.style.animation = 'fadeIn 1.5s ease-in forwards';
       }
     }
 
-    // Khi bấm nút bắt đầu
-    startButton.addEventListener('click', () => {
-      // 1) Ẩn màn mở đầu
-      startScreen.style.display = 'none';
-
-      // 2) Phát nhạc
-      page1Music.volume = 1;
-      page1Music.play().catch(()=>{});
-
-      // 3) Chạy chữ
+    window.addEventListener('load', () => {
       letterEl.style.opacity = 1;
       typeWriter();
     });
 
-    // Khi bấm nút sang trang
     nextButton.addEventListener('click', () => {
       nextButton.style.display = 'none';
 
       const fadeOut = setInterval(() => {
-        if(page1Music.volume > 0.05){
-          page1Music.volume -= 0.05;
-        }else{
+        if (pianoIntro.volume > 0.05) {
+          pianoIntro.volume -= 0.05;
+        } else {
           clearInterval(fadeOut);
-          page1Music.pause();
-          page1Music.currentTime = 0;
-          window.location.href = './album.html';
+          pianoIntro.pause();
+
+          mainMusic.volume = 0;
+          mainMusic.play();
+
+          const fadeIn = setInterval(() => {
+            if (mainMusic.volume < 1) {
+              mainMusic.volume += 0.05;
+            } else {
+              clearInterval(fadeIn);
+            }
+          }, 200);
         }
-      }, 160);
+      }, 200);
+
+      setTimeout(() => {
+        window.location.href = 'album.html';
+      }, 4000);
     });
   </script>
+
 </body>
 </html>
