@@ -7,50 +7,223 @@
   <style>
     :root{--paper:#f6eee2;--accent:#b86b66;--muted:#f7d6dc;--text:#4a2b2a}
     *{box-sizing:border-box}
-    body{margin:0;padding:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--paper);color:var(--text);min-height:100vh;overflow-x:hidden;position:relative}
+    body{
+      margin:0;
+      padding:0;
+      font-family:Inter, system-ui, Arial, sans-serif;
+      background:var(--paper);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+      position:relative;
+    }
 
     /* Floating hearts background */
-    .heart{position:fixed;bottom:-40px;pointer-events:none;font-size:20px;animation:floatUp 5s linear infinite}
-    @keyframes floatUp{0%{transform:translateY(0) rotate(0) scale(1);opacity:1}100%{transform:translateY(-900px) rotate(120deg) scale(1.7);opacity:0}}
+    .heart{
+      position:fixed;
+      bottom:-40px;
+      pointer-events:none;
+      font-size:20px;
+      animation:floatUp 5s linear infinite;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) rotate(0) scale(1);opacity:1}
+      100%{transform:translateY(-900px) rotate(120deg) scale(1.7);opacity:0}
+    }
 
-    .container{width:100%;max-width:980px;margin:28px auto;padding:20px;border-radius:14px;background:linear-gradient(180deg, rgba(255,250,244,0.95), rgba(246,238,226,0.95));box-shadow:0 14px 40px rgba(74,43,42,0.08)}
-    h1{margin:0 0 6px 0;font-size:1.25rem;text-align:center}
-    p.lead{margin:6px 0 18px 0;text-align:center;color:rgba(74,43,42,0.7)}
+    .container{
+      width:100%;
+      max-width:980px;
+      margin:28px auto;
+      padding:20px;
+      border-radius:14px;
+      background:linear-gradient(180deg, rgba(255,250,244,0.95), rgba(246,238,226,0.95));
+      box-shadow:0 14px 40px rgba(74,43,42,0.08);
+    }
+    h1{
+      margin:0 0 6px 0;
+      font-size:1.25rem;
+      text-align:center;
+    }
+    p.lead{
+      margin:6px 0 18px 0;
+      text-align:center;
+      color:rgba(74,43,42,0.7);
+    }
 
     /* topics list */
-    .topics{display:flex;flex-direction:column;gap:14px;margin-top:12px}
-    .topic{display:flex;gap:14px;align-items:center;padding:14px;border-radius:12px;background:rgba(255,255,255,0.7);cursor:pointer;border:1px solid rgba(74,43,42,0.04);box-shadow:0 8px 18px rgba(74,43,42,0.04);transition:transform 220ms,box-shadow 220ms}
-    .topic:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(74,43,42,0.08)}
-    .topic .thumb{width:120px;height:90px;background-size:cover;background-position:center;border-radius:8px;flex-shrink:0;border:8px solid #fff;box-shadow:0 8px 18px rgba(74,43,42,0.04)}
+    .topics{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      margin-top:12px;
+    }
+    .topic{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      padding:14px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.7);
+      cursor:pointer;
+      border:1px solid rgba(74,43,42,0.04);
+      box-shadow:0 8px 18px rgba(74,43,42,0.04);
+      transition:transform 220ms,box-shadow 220ms;
+    }
+    .topic:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 40px rgba(74,43,42,0.08);
+    }
+    .topic .thumb{
+      width:120px;
+      height:90px;
+      background-size:cover;
+      background-position:center;
+      border-radius:8px;
+      flex-shrink:0;
+      border:8px solid #fff;
+      box-shadow:0 8px 18px rgba(74,43,42,0.04);
+    }
     .topic .info{flex:1}
-    .topic h3{margin:0;font-size:1.05rem}
-    .topic p{margin:6px 0 0 0;color:rgba(74,43,42,0.6)}
+    .topic h3{
+      margin:0;
+      font-size:1.05rem;
+    }
+    .topic p{
+      margin:6px 0 0 0;
+      color:rgba(74,43,42,0.6);
+    }
 
     /* album overlay */
-    .overlay{position:fixed;inset:0;background:linear-gradient(rgba(10,6,6,0.55), rgba(10,6,6,0.55));display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
-    .album{width:100%;max-width:840px;background:linear-gradient(180deg,#fff,#fffaf6);border-radius:12px;padding:18px;box-shadow:0 30px 60px rgba(0,0,0,0.45);position:relative}
-    .album .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .album h2{margin:0;font-size:1.1rem}
-    .backBtn{background:var(--muted);border:none;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:linear-gradient(rgba(10,6,6,0.55), rgba(10,6,6,0.55));
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:9999;
+    }
+    .album{
+      width:100%;
+      max-width:840px;
+      background:linear-gradient(180deg,#fff,#fffaf6);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 30px 60px rgba(0,0,0,0.45);
+      position:relative;
+    }
+    .album .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .album h2{
+      margin:0;
+      font-size:1.1rem;
+    }
+    .backBtn{
+      background:var(--muted);
+      border:none;
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+    }
 
-    .slideshow{position:relative;height:520px;margin-top:12px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.9s ease-in-out, transform 0.9s ease-in-out}
+    .slideshow{
+      position:relative;
+      height:580px; /* tăng chiều cao để chứa ảnh lớn hơn */
+      margin-top:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .slide{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      opacity:0;
+      transition:opacity 0.9s ease-in-out, transform 0.9s ease-in-out;
+    }
 
     /* page flip effect */
     .slide.flipOut{transform:rotateY(90deg);opacity:0}
     .slide.flipIn{transform:rotateY(-90deg);opacity:0}
     .slide.show{opacity:1;transform:rotateY(0deg)}
 
-    .polaroid{width:70%;max-width:640px;background:#fff;border-radius:10px;padding:16px;padding-bottom:28px;box-shadow:0 20px 40px rgba(74,43,42,0.12);display:flex;flex-direction:column;align-items:center}
-    .polaroid .photo{width:100%;height:360px;background-size:cover;background-position:center;border-radius:6px}
-    .polaroid .caption{margin-top:12px;color:var(--text);text-align:center;font-style:italic}
+    /* Polaroid khung to hơn */
+    .polaroid{
+      width:90%;              /* trước là 70%, giờ to gần full */
+      max-width:780px;        /* cho màn lớn */
+      background:#fff;
+      border-radius:10px;
+      padding:16px;
+      padding-bottom:28px;
+      box-shadow:0 20px 40px rgba(74,43,42,0.12);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+    .polaroid .photo{
+      width:100%;
+      height:460px;           /* trước 360px, giờ cao hơn cho ảnh “đã” hơn */
+      background-size:cover;
+      background-position:center;
+      border-radius:6px;
+    }
+    .polaroid .caption{
+      margin-top:12px;
+      color:var(--text);
+      text-align:center;
+      font-style:italic;
+    }
 
-    .controls{display:flex;gap:8px;justify-content:center;margin-top:12px}
-    .controls button{background:var(--accent);color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
+    .controls{
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      margin-top:12px;
+    }
+    .controls button{
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:8px 12px;
+      border-radius:8px;
+      cursor:pointer;
+    }
 
-    footer{margin-top:16px;text-align:center;color:rgba(74,43,42,0.6)}
+    footer{
+      margin-top:16px;
+      text-align:center;
+      color:rgba(74,43,42,0.6);
+    }
 
-    @media (max-width:900px){.polaroid{width:92%}.slide{position:relative;height:auto}.slideshow{height:420px}.topic .thumb{width:100px;height:70px}}
+    @media (max-width:900px){
+      .polaroid{
+        width:96%;
+        max-width:100%;
+      }
+      .polaroid .photo{
+        height:320px; /* giảm cho vừa màn nhỏ */
+      }
+      .slide{
+        position:relative;
+        height:auto;
+      }
+      .slideshow{
+        height:420px;
+      }
+      .topic .thumb{
+        width:100px;
+        height:70px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -72,11 +245,11 @@
 
   <div class="container">
     <h1>Những Ký Ức Của Chúng Mình 💞</h1>
-    <p class="lead">Chọn một chủ đề để xem lại album — mỗi ảnh có một ghi chú nhỏ từ anh gửi em.</p>
+    <p class="lead">Chọn một chủ đề để xem nha — mỗi ảnh có một ghi chú nhỏ đó.</p>
 
     <section class="topics" id="topics"></section>
 
-    <footer>Gửi bởi: Anh bé Mưn Cun • ❤️</footer>
+    <footer>Creator: Anh bé Mưn Cun • ❤️</footer>
   </div>
 
   <!-- Album overlay -->
@@ -111,29 +284,30 @@
         images: [
           { src: 'https://files.catbox.moe/bdjm06.jpg', note: 'Lần đầu mình cùng nhau quay vlog đi ăn milo dầm.' },
           { src: 'https://files.catbox.moe/v5151k.jpg', note: 'Thứ tâm đắc nhất với anh là nụ cười của em.' },
-          { src: 'https://files.catbox.moe/4n6hfi.jpg', note: 'Người bệnh nhìn hài mà người trông cũng hài luôn nữa.' },
-          { src: 'https://files.catbox.moe/hfdxrj.jpg', note: 'Tấm này anh chụp lén, nhìn em đang yêu mà buồn cười quá nên lén xíu.' }
+          { src: 'https://files.catbox.moe/17oe23.jpg', note: 'Thương người bệnh mà người trông vẫn phải trêu cho được.' },
+          { src: 'https://files.catbox.moe/ogjxto.jpg', note: 'Tấm này anh chụp lén, nhìn em đang yêu mà buồn cười quá nên lén xíu.' },
+          { src: 'https://files.catbox.moe/77kjvi.jpg', note: 'Đòi thơm má, thơm luôn sợ gì.' }
         ]
       },
       {
         id: 't2',
         title: 'Những chuyến đi',
-        desc: 'Cùng nhau đi khắp nơi',
+        desc: 'Phải đi cùng nhau',
         images: [
           { src: 'https://files.catbox.moe/7y58ez.jpg', note: 'Đi nghịch ngợm bay nhảy ở Hải Phòng nè.' },
           { src: 'https://files.catbox.moe/yllp50.jpg', note: 'Đi ăn cưới cùng nhau, say xong về cứ đòi ôm với bóp đầu.' },
-          { src: 'https://files.catbox.moe/a0m9kt.jpg', note: 'Sinh nhật năm đó em ước điều gì, anh vẫn luôn tò mò.' },
-          { src: 'https://files.catbox.moe/2b1vgp.jpg', note: 'Dìu em lên tận sân thượng, chụp mỗi đứa 1 kiểu cho cute.' }
+          { src: 'https://files.catbox.moe/uofq3v.jpg', note: 'Sinh nhật năm đó em ước điều gì, anh vẫn luôn tò mò.' },
+          { src: 'https://files.catbox.moe/47s9au.jpg', note: 'Dìu em lên tận sân thượng, chụp mỗi đứa 1 kiểu cho cute.' }
         ]
       },
       {
         id: 't3',
-        title: 'Bất ngờ và bất ngờ',
-        desc: 'Những ngày đặc biệt của em và tụi mình',
+        title: 'Trêu em một chút',
+        desc: 'Xin lỗi vì đã nghịch ạ',
         images: [
           { src: 'https://files.catbox.moe/1j8pbr.jpg', note: 'Đi thể dục ở hồ này, nghịch lắm cơ.' },
           { src: 'https://files.catbox.moe/q63yn6.jpg', note: 'Chưa tháo niềng nên ngủ cứ vậy đấy.' },
-          { src: 'https://files.catbox.moe/9ho1ta.jpg', note: 'Vẫn là kiểu ngủ mà k tài nào hài hơn được.' },
+          { src: 'https://files.catbox.moe/9ho1ta.jpg', note: 'Vẫn là kiểu ngủ mà không tài nào hài hơn được.' },
           { src: 'https://files.catbox.moe/xoveif.jpg', note: 'Lần này là chụp mà biết nên giấu mặt đi cho cẩn thận.' }
         ]
       },
@@ -142,21 +316,21 @@
         title: 'Khoảnh khắc dễ thương của em',
         desc: 'Những biểu cảm khiến anh tan chảy',
         images: [
-          { src: 'https://files.catbox.moe/qo325l.jpg', note: 'Cái lúm đồng tiền này là tội ác, biết không.' },
-          { src: 'https://files.catbox.moe/401g4v.jpg', note: 'Em bĩu vậy mà dễ thương thì ai sánh được.' },
-          { src: 'https://files.catbox.moe/q101ya.jpg', note: 'Tấm này anh chụp em không khen, anh nhìn thấy đúng là “vợ tương lai”.' },
-          { src: 'https://files.catbox.moe/ce8t0g.jpg', note: 'Mỗi biểu cảm của em đều là một lý do để anh thương thêm.' }
+          { src: 'https://files.catbox.moe/n7u7eg.jpg', note: 'Cái lúm đồng tiền này là tội ác, biết không.' },
+          { src: 'https://files.catbox.moe/2up8ee.jpg', note: 'Em bĩu vậy mà dễ thương thì ai sánh được.' },
+          { src: 'https://files.catbox.moe/q101ya.jpg', note: 'Tấm này anh chụp em chạ khen, anh nhìn thấy đúng là “vợ tương lai”.' },
+          { src: 'https://files.catbox.moe/5rs1gz.jpg', note: 'Mỗi biểu cảm của em đều là một lý do để anh thương thêm.' }
         ]
       },
       {
         id: 't5',
-        title: 'Những dòng nhắn gửi',
-        desc: 'Lời anh muốn nói với em',
+        title: 'Những dòng tin nhắn',
+        desc: 'Chuyện đông tây ta nói với nhau',
         images: [
-          { src: 'https://files.catbox.moe/gqftlz.jpg', note: 'Lần được đón em về và nắm tay run rẩy này.' },
-          { src: 'https://files.catbox.moe/7h1vcn.jpg', note: 'Cảm ơn em vì đã từng chọn anh.' },
-          { src: 'https://files.catbox.moe/zu96vh.jpg', note: 'Anh vẫn yêu em nhiều hơn đó nha.' },
-          { src: 'https://files.catbox.moe/qlznr7.jpg', note: 'Nếu em cho phép, anh muốn lại được cùng em làm những điều đúng.' }
+          { src: 'https://files.catbox.moe/c2ne5m.jpg', note: 'Cái ngày được đón em về và nắm tay ngại ngùng này.' },
+          { src: 'https://files.catbox.moe/89jqsr.jpg', note: 'Cảm ơn em vì đã từng chọn anh.' },
+          { src: 'https://files.catbox.moe/269aht.jpg', note: 'Anh vẫn yêu em nhiều hơn đó nha.' },
+          { src: 'https://files.catbox.moe/l2ra4s.jpg', note: 'Nếu em cho phép, anh muốn lại được cùng em làm những điều đúng.' }
         ]
       }
     ];
@@ -178,8 +352,12 @@
         const el=document.createElement('div');
         el.className='topic';
         el.dataset.id=t.id;
-        el.innerHTML=`<div class="thumb" style="background-image:url('${t.images[0].src}')"></div>
-                      <div class="info"><h3>${t.title}</h3><p>${t.desc}</p></div>`;
+        el.innerHTML=
+          `<div class="thumb" style="background-image:url('${t.images[0].src}')"></div>
+           <div class="info">
+             <h3>${t.title}</h3>
+             <p>${t.desc}</p>
+           </div>`;
         topicsEl.appendChild(el);
       });
     }
@@ -199,10 +377,11 @@
         const s=document.createElement('div');
         s.className='slide';
         s.dataset.index=i;
-        s.innerHTML=`<div class="polaroid">
-                        <div class="photo" style="background-image:url('${img.src}')"></div>
-                        <div class="caption">${img.note}</div>
-                      </div>`;
+        s.innerHTML=
+          `<div class="polaroid">
+             <div class="photo" style="background-image:url('${img.src}')"></div>
+             <div class="caption">${img.note}</div>
+           </div>`;
         slideshow.appendChild(s);
         slides.push(s);
       });
@@ -226,46 +405,67 @@
     }
 
     function nextSlide(){
-      if(!slides.length)return;
+      if(!slides.length) return;
       slides[currentIndex].classList.add('flipOut');
       currentIndex=(currentIndex+1)%slides.length;
       setTimeout(()=>showSlide(currentIndex,false),300);
     }
 
     function prevSlide(){
-      if(!slides.length)return;
+      if(!slides.length) return;
       slides[currentIndex].classList.add('flipOut');
       currentIndex=(currentIndex-1+slides.length)%slides.length;
       setTimeout(()=>showSlide(currentIndex,false),300);
     }
 
-    function startAuto(){stopAuto();slideInterval=setInterval(nextSlide,intervalMs);}
-    function stopAuto(){if(slideInterval)clearInterval(slideInterval);}
+    function startAuto(){
+      stopAuto();
+      slideInterval=setInterval(nextSlide,intervalMs);
+    }
+    function stopAuto(){
+      if(slideInterval) clearInterval(slideInterval);
+    }
 
     topicsEl.addEventListener('click',e=>{
       const t=e.target.closest('.topic');
-      if(!t)return;
+      if(!t) return;
       openAlbum(t.dataset.id);
     });
 
-    backBtn.addEventListener('click',()=>{overlay.style.display='none';stopAuto();});
+    backBtn.addEventListener('click',()=>{
+      overlay.style.display='none';
+      stopAuto();
+    });
     nextBtn.addEventListener('click',nextSlide);
     prevBtn.addEventListener('click',prevSlide);
 
     pauseBtn.addEventListener('click',()=>{
-      if(playing){stopAuto();playing=false;pauseBtn.textContent='Phát lại';}
-      else{startAuto();playing=true;pauseBtn.textContent='Tạm dừng';}
+      if(playing){
+        stopAuto();
+        playing=false;
+        pauseBtn.textContent='Phát lại';
+      }else{
+        startAuto();
+        playing=true;
+        pauseBtn.textContent='Tạm dừng';
+      }
     });
 
     overlay.addEventListener('click',e=>{
-      if(e.target===overlay){overlay.style.display='none';stopAuto();}
+      if(e.target===overlay){
+        overlay.style.display='none';
+        stopAuto();
+      }
     });
 
     document.addEventListener('keydown',e=>{
       if(overlay.style.display==='flex'){
-        if(e.key==='ArrowRight')nextSlide();
-        if(e.key==='ArrowLeft')prevSlide();
-        if(e.key==='Escape'){overlay.style.display='none';stopAuto();}
+        if(e.key==='ArrowRight') nextSlide();
+        if(e.key==='ArrowLeft') prevSlide();
+        if(e.key==='Escape'){
+          overlay.style.display='none';
+          stopAuto();
+        }
       }
     });
   </script>
